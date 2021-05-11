@@ -1,0 +1,127 @@
+Q. Which is the base of all the classes in Java?
+ans: Object class
+Q. Can you name some methods of object clasd which is
+use in common?
+ans: toString(), equals(), hashCode(), getClass(), wait(),clone()
+
+In java whenever we make a class. For example we created Student class.
+So Student is automatically being derived from Object class. WE
+DON'T WRITE
+
+public Student extends Object {}
+
+Both Student and StudentMain are deriving the Object class.
+
+Because of that with Student class object we are able to call the
+methods toString(), equals(), hashCode() etc.
+
+If the content of the objects are same , expected 
+* hashCode value should be same.
+* equals method should return true.
+
+But what we found while writing our first demo code of Student and StudentMain in com.cts.demo1.
+Though the object content is same , hashCode values are different and equals method is also return false.
+So basically in the Object's class hashCode method a unique number is generated during the runtime by jvm
+to uniquely identify the objects. equals method of Object class is written in such a way that it compares
+the address and not the content. So the behaviour of equals and == are same.
+------------------------------------------------------------------------------------------------------
+According to the specification it is said if the contents are same hashCode should be same and equals
+method should return true.For that reason we should override the hashCode and equals method in our
+class. 
+---------------------------------------------------------------------------------------------------------
+Type Casting and Conversion :- 
+For conversion of data types.
+Conversion:- when we try to accomodate the data type which is having smaller byte size to data type 
+which is having bigger byte size.
+So example 
+    short can be converted into int
+     short i=1;
+     int num=i;
+
+     int num=10;
+     long l=num;
+
+     float f=10.2f; // here if we don't suffix with f/F the value is considered as double.
+     double d=f;
+Type Casting is forcefully converting the data type which is higher byte size into smaller byte size.
+There we have a risk of loosing some part of the value.
+
+
+     double d=12.5;
+     int num=d;
+
+   // The above two lines will compilation error because we are trying to store double into int.
+   // Double is having higher byte size as comparison to int.
+
+    double d=12.5;
+    int num=(int)d;
+--------------------------------------------------------------------------------------------------------------- Type Conversion and Casting in Reference data type also.
+
+* The condition for conversion and casting in this case is that the classes should have parent child relationship.
+
+   public class Base{}
+   public class Derived extends Base{}
+
+    Base base=new Derived();
+    // Here the reference variable is of Base type and Object is of derived classs.
+    // The above example is of conversion where we are converting from derived to base type.
+
+    Derived derived=(Derived)base;
+    // Type casting which means we are converting from Base to derived type.  
+========================================================================================================
+Always type casting is preceeded by type conversion in Reference type.
+
+   What cannot happen
+   public class Base{}
+   public class Derived extends Base{}
+   Base base=new Base();
+   Derived derived=(Derived)base;
+// The above will give class cast exception
+
+  Exception in thread "main" java.lang.ClassCastException: class com.cts.demo2.Base cannot be cast to class com.cts.demo2.Derived (com.cts.demo2.Base and com.cts.demo2.Derived are in unnamed module of loader 'app')
+	at com.cts.demo2.Main.main(Main.java:11)
+
+
+Can we write
+ 
+   Object object1=new Base();
+   Object object2=new Derived();
+    
+   object1.display(); ?  No because display() is not present in the Object class
+   object1.toString(); ? yes because toString() method is present in the Object class
+  Which version of toString() will be called?
+  ans: If we don't override toString() in Base class, toString() of Object class will be called
+  otherwise if we have overridden toString() in Base, then that toString() method will be called.
+------------------------------------------------------------------------------------------------
+
+   public class Demo {
+   
+     public void display(){
+     System.out.println("Hello"); 
+    }
+
+    public static void main(String args[]) {
+       display();
+     }
+   }
+
+// So the above code won't work as we are trying to access non static static method.
+
+
+public class Demo {
+   
+     public void display(){
+     System.out.println("Hello"); 
+    }
+
+    public static void main(String args[]) {
+        Demo demo=new Demo();
+        demo.display();
+     }
+   }
+  // So the object creation non static method are coming into existence and can be used.
+--------------------------------------------------------------------------------------------------------
+
+
+
+
